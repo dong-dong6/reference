@@ -9,15 +9,13 @@ jobs:
     if: github.repository == 'jaywcjlove/reference'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
-          registry-url: 'https://registry.npmjs.org'
+          node-version: 20
 
       - run: npm install
       - run: npm run build
-      - run: cp -rp icons ./dist
 
       - name: Generate Contributors Images
         uses: jaywcjlove/github-action-contributors@main
@@ -31,7 +29,6 @@ jobs:
         uses: jaywcjlove/github-action-modify-file-content@main
         with:
           path: CONTRIBUTING.md
-          trim_whitespace: false
           body: |
             ${{steps.contributors.outputs.htmlList}}
 
@@ -39,7 +36,6 @@ jobs:
         uses: jaywcjlove/github-action-modify-file-content@main
         with:
           path: README.md
-          trim_whitespace: false
           body: |
             ${{steps.contributors.outputs.htmlList}}
 
